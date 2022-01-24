@@ -11,7 +11,7 @@ HƯỚNG DẪN CÀI ĐẶT MÔI TRƯỜNG PHÁT TRIỂN FIRMWARE THIẾT BỊ FI
 - Download SDK
     + git clone --recurse-submodule https://YOUR_GIT_TOKEN@github.com/ByTechJSC/fire_safe_esp32_sdk
 - Download ESP32 code
-    + git clone -b feature/dev https://YOUR_GIT_TOKEN@github.com/ByTechJSC/FireSafe
+    + git clone -b origin/dev https://YOUR_GIT_TOKEN@github.com/ByTechJSC/FireSafe
 - Cài đặt SDK
     + cd /path/to/esp-idf
     + ./install.sh
