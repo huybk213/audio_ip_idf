@@ -262,6 +262,23 @@ esp_err_t esp_transport_set_default_port(esp_transport_handle_t t, int port)
     return ESP_OK;
 }
 
+// int esp_transport_get_errno(esp_transport_handle_t t)
+// {
+//     if (t && t->_get_errno) {
+//         return t->_get_errno(t);
+//     }
+//     return ESP_FAIL;
+// }
+
+// esp_err_t esp_transport_set_get_errno_func(esp_transport_handle_t t, trans_func _get_errno_func)
+// {
+//     if (t == NULL) {
+//         return ESP_FAIL;
+//     }
+//     t->_get_errno = _get_errno_func;
+//     return ESP_OK;
+// }
+
 esp_err_t esp_transport_set_async_connect_func(esp_transport_handle_t t, connect_async_func _connect_async_func)
 {
     if (t == NULL) {

@@ -274,6 +274,20 @@ static esp_err_t tcp_destroy(esp_transport_handle_t t)
     return 0;
 }
 
+static int tcp_get_errno(esp_transport_handle_t t)
+{
+    transport_tcp_t *tcp = esp_transport_get_context_data(t);
+    if (tcp->sock < 2) {
+        ESP_LOGE(TAG, "tcp connect failed");
+        return -1;
+    }
+    int sock_errno = 0;
+    uint32_t optlen = sizeof(sock_errno);
+    getsockopt(tcp->sock, SOL_SOCKET, SO_ERROR, &sock_errno, &optlen);
+    ESP_LOGD(TAG, "[socket = %d] errno is %d\n", tcp->sock, sock_errno);
+    return sock_errno;
+}
+
 static int tcp_get_socket(esp_transport_handle_t t)
 {
     if (t) {

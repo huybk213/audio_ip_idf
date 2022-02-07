@@ -294,6 +294,20 @@ void esp_transport_ssl_skip_common_name_check(esp_transport_handle_t t)
     }
 }
 
+static int esp_transport_ssl_get_errno(esp_transport_handle_t t)
+{
+    transport_ssl_t *ssl = esp_transport_get_context_data(t);
+    if ((ssl == NULL) || (ssl->tls == NULL)) {
+        ESP_LOGE(TAG, "tls connect failed");
+        return -1;
+    }
+    int sock_errno = 0;
+    uint32_t optlen = sizeof(sock_errno);
+    getsockopt(ssl->tls->sockfd, SOL_SOCKET, SO_ERROR, &sock_errno, &optlen);
+    ESP_LOGD(TAG, "[socket = %d] errno is %d\n", ssl->tls->sockfd, sock_errno);
+    return sock_errno;
+}
+
 #ifdef CONFIG_ESP_TLS_USE_SECURE_ELEMENT
 void esp_transport_ssl_use_secure_element(esp_transport_handle_t t)
 {
