@@ -1169,7 +1169,11 @@ static int http_client_prepare_first_line(esp_http_client_handle_t client, int w
         http_header_set_format(client->request->headers, "Content-Length", "%d", write_len);
     } else {
         esp_http_client_set_header(client, "Transfer-Encoding", "chunked");
+#if AUDIO_IP_SDK        // Loa phuong master dung http put de stream data thay vi http post
+        esp_http_client_set_method(client, HTTP_METHOD_PUT);
+#else
         esp_http_client_set_method(client, HTTP_METHOD_POST);
+#endif
     }
 
     const char *method = HTTP_METHOD_MAPPING[client->connection_info.method];
